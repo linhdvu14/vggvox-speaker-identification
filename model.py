@@ -58,3 +58,23 @@ def vggvox_model():
 	return m
 
 
+def test():
+	model = vggvox_model()
+	num_layers = len(model.layers)
+
+	x = np.random.randn(1,512,30,1)
+	outputs = []
+
+	for i in range(num_layers):
+		get_ith_layer_output = K.function([model.layers[0].input, K.learning_phase()],
+		                              [model.layers[i].output])	
+		layer_output = get_ith_layer_output([x, 0])[0] 	# output in test mode = 0
+		outputs.append(layer_output)
+
+	for i in range(11):
+		print("Shape of layer {} output:{}".format(i, outputs[i].shape))
+
+
+if __name__ == '__main__':
+	test()
+
