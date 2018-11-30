@@ -101,6 +101,5 @@ ENV/
 .mypy_cache/
 
 # Mine
-*.wav
 res/
 .DS_Store

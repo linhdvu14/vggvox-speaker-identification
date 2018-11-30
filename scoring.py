@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cdist, euclidean, cosine
@@ -72,6 +73,9 @@ def get_id_result():
 	scores['correct'] = (scores['result'] == scores['test_speaker'])*1. # bool to int
 
 	print("Writing outputs to [{}]....".format(c.RESULT_FILE))
+	result_dir = os.path.dirname(c.RESULT_FILE)
+	if not os.path.exists(result_dir):
+	    os.makedirs(result_dir)
 	with open(c.RESULT_FILE, 'w') as f:
 		scores.to_csv(f, index=False)
 
